@@ -28,6 +28,7 @@ class SingleNumericFilter(admin.FieldListFilter):
 
     def __init__(self, field, request, params, model, model_admin, field_path):
         super().__init__(field, request, params, model, model_admin, field_path)
+        self.title = field_path.replace("_"," ").upper()
         if not isinstance(field, (DecimalField, IntegerField, FloatField, AutoField)):
             raise TypeError('Class {} is not supported for {}.'.format(type(self.field), self.__class__.__name__))
 
@@ -64,6 +65,7 @@ class RangeNumericFilter(admin.FieldListFilter):
 
     def __init__(self, field, request, params, model, model_admin, field_path):
         super().__init__(field, request, params, model, model_admin, field_path)
+        self.title = field_path.replace("_"," ").upper()
         if not isinstance(field, (DecimalField, IntegerField, FloatField, AutoField)):
             raise TypeError('Class {} is not supported for {}.'.format(type(self.field), self.__class__.__name__))
 
@@ -123,6 +125,7 @@ class SliderNumericFilter(RangeNumericFilter):
     def __init__(self, field, request, params, model, model_admin, field_path):
         super().__init__(field, request, params, model, model_admin, field_path)
 
+        self.title = field_path.replace("_"," ").upper()
         self.field = field
         self.q = model_admin.get_queryset(request)
 
